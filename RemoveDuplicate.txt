@@ -1,0 +1,67 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Algorithms
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Remove duplicate string :[" + RemoveDuplicate("abcdaadeddd") + "]");
+
+            Console.ReadKey();
+
+        }
+
+        public static string RemoveDuplicate(string str)
+        {
+            Dictionary<string, string> dict = new Dictionary<string, string>();
+            char[] strchar = str.ToArray();
+            for (int i = 0; i < str.Length; i++)
+            {
+                if (!dict.ContainsKey(strchar[i].ToString()))
+                {
+                    dict.Add(strchar[i].ToString(), Convert.ToString(i));
+                }
+            }
+            return DictionaryToString(dict);
+        }
+        public static string DictionaryToString(Dictionary<string, string> dictionary)
+        {
+            string dictionaryString = "{";
+            foreach (KeyValuePair<string, string> keyValues in dictionary)
+            {
+                dictionaryString += keyValues.Key;
+            }
+            return dictionaryString.TrimEnd(',', ' ') + "}";
+        }
+
+        public static List<string> RemoveDuplicatesIterative(List<string> items)
+        {
+            List<string> result = new List<string>();
+            for (int i = 0; i < items.Count; i++)
+            {
+                // Assume not duplicate.
+                bool duplicate = false;
+                for (int z = 0; z < i; z++)
+                {
+                    if (items[z] == items[i])
+                    {
+                        // This is a duplicate.
+                        duplicate = true;
+                        break;
+                    }
+                }
+                // If not duplicate, add to result.
+                if (!duplicate)
+                {
+                    result.Add(items[i]);
+                }
+            }
+            return result;
+        }
+    }
+}
